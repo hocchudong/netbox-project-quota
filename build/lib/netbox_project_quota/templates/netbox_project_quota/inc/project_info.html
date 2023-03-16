@@ -1,0 +1,33 @@
+{% load helpers %}
+{% load render_table from django_tables2 %}
+
+<div class="card">
+  <h5 class="card-header">Project</h5>
+  <div class="card-body">
+  {% if project %}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Domain Name</th>
+        <th>Status</th>
+        <th>Quota Template</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in project %}
+        <tr>
+          <td><a href="{% url 'plugins:netbox_project_quota:project' pk=p.id %}?return_url={{ p.get_absolute_url }}">{{ p.name }} </a></td>
+          <td>{{ p.domain_name }}</td>
+          <td>{{ p.status }}</td>
+          <td>{{ p.quota_template }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  {% else %}
+    <div class="text-muted">None</div>
+  {% endif %}
+  </div>
+</div>

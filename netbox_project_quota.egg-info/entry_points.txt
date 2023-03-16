@@ -1,0 +1,3 @@
+[netbox_plugins]
+netbox_project_quota = netbox_project_quota:Plugin
+

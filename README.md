@@ -12,7 +12,7 @@ Next, enable the plugin in `/opt/netbox/netbox/netbox/configuration.py`, or if y
 
 ```
 PLUGINS = [
-    'netbox_manage_project'
+    'netbox_project_quota'
 ]
 ```
 

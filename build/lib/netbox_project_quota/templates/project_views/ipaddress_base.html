@@ -1,0 +1,14 @@
+{% extends 'generic/object.html' %}
+{% load buttons %}
+{% load helpers %}
+{% load plugins %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item"><a href="{% url 'plugins:netbox_project_quota:project_list' %}?name_id={{ object.name.pk }}">{{ object.name }}</a></li>
+{% endblock %}
+{% block extra_controls %}
+  <a href="{% url 'plugins:netbox_project_quota:project_add_ipaddress' pk=object.pk %}?return_url={{ object.get_absolute_url }}" class="btn btn-primary btn-sm">
+    <span class="mdi mdi-plus-thick" aria-hidden="true"></span> Assign IPAddress
+  </a>
+  {% endblock %}

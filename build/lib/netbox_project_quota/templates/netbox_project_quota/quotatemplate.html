@@ -1,0 +1,52 @@
+{% extends 'generic/object.html' %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+  <div class="row mb-3">
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Quota Template</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Quota Template</th>
+              <td>{{ object.template_name }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Instances Quota</th>
+              <td>{{ object.instances_quota }}</td>
+            </tr>
+            <tr>
+              <th scope="row">VCPUs Quota</th>
+              <td>{{ object.vcpus_quota }}</td>
+            </tr>
+            <tr>
+                <th scope="row">RAM Quota</th>
+                <td>{{ object.ram_quota }}</td>
+            </tr>
+            <tr>
+                <th scope="row">IP Address Quota</th>
+                <td>{{ object.ipaddr_quota }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Device Quota</th>
+                <td>{{ object.device_quota }}</td>
+            </tr>
+            <!-- <tr>
+                <th scope="row">Actions</th>
+                <td>
+                    <a href="{% url 'plugins:netbox_project_quota:quotatemplate_edit' object.pk %}" class="btn btn-sm btn-secondary"><i class="mdi mdi-pencil"></i></a>
+                    <a href="{% url 'plugins:netbox_project_quota:quotatemplate_delete' object.pk %}" class="btn btn-sm btn-danger" data-confirm="Are you sure you want to delete this quota template?" data-confirm-title="Confirm Delete"><i class="mdi mdi-trash-can"></i></a>
+                </td>
+            </tr> -->
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/custom_fields.html' %}
+    </div>
+    <div class="col col-md-6">
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
+    </div>
+  </div>
+{% endblock content %}
