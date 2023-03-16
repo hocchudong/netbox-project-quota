@@ -1,0 +1,42 @@
+{% load helpers %}
+
+<div class="card">
+  <h5 class="card-header">Users</h5>
+  <div class="card-body">
+    {% with contacts=object.contact.all %}
+      {% if contacts.exists %}
+        <table class="table table-hover">
+          <tr>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Phone</th>
+            <th>Email</th>
+          </tr>
+          {% for contact in contacts %}
+            <tr>
+              <td><a href="{{ contact.get_absolute_url }}">{{ contact.name }} </a></td>
+              <td>{{ contact.title|placeholder }}</td>
+              <td>
+                {% if contact.phone %}
+                  <a href="tel:{{ contact.contact.phone }}">{{ contact.phone }}</a>
+                {% else %}
+                  {{ ''|placeholder }}
+                {% endif %}
+              </td>
+              <td>
+                {% if contact.email %}
+                  <a href="mailto:{{ contact.contact.email }}">{{ contact.email }}</a>
+                {% else %}
+                  {{ ''|placeholder }}
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% else %}
+        <div class="text-muted">None</div>
+      {% endif %}
+    {% endwith %}
+  </div>
+</div>
+

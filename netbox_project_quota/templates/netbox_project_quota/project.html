@@ -1,0 +1,79 @@
+{% extends 'generic/object.html' %}
+
+{% load helpers %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+  <div class="row mb-3">
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Project</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Name</th>
+              <td>{{ object.name }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Project ID</th>
+              <td>{{ object.project_id }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Domain Name</th>
+              <td>{{ object.domain_name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Status</th>
+                <td>{{ object.get_status_display }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Quota Template</th>
+                <td>{{ object.quota_template|linkify }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Description</th>
+                <td>{{ object.description }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% include 'project_views/project_user.html' %}
+      {% include 'inc/panels/custom_fields.html' %}
+    </div>
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Quota Used Summary</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">RAM</th>
+              <td>{{ object.ram_quota_used|placeholder }}</td>
+            </tr>
+            <tr>
+              <th scope="row">VCPUs</th>
+              <td>{{ object.cpu_quota_used|placeholder }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Disk</th>
+              <td>{{ object.disk_quota_used|placeholder }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Devices</th>
+              <td>{{ object.device_quota_used|placeholder }}</td>
+            </tr>
+            <tr>
+              <th scope="row">VMs</th>
+              <td>{{ object.vm_quota_used|placeholder }}</td>
+            </tr>
+            <tr>
+              <th scope="row">IPs</th>
+              <td>{{ object.ip_quota_used|placeholder }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
+    </div>
+  </div>
+{% endblock content %}
