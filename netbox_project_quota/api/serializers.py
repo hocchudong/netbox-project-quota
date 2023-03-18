@@ -6,7 +6,7 @@ from ..models import Project, QuotaTemplate
 
 class NestedProjectSerializer(WritableNestedSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='plugins-api:netbox_manage_project-api:project-detail'
+        view_name='plugins-api:netbox_project_quota-api:project-detail'
     )
     device_count = serializers.IntegerField(read_only=True)
     ip_count = serializers.IntegerField(read_only=True)
@@ -29,7 +29,7 @@ class NestedProjectSerializer(WritableNestedSerializer):
 
 class NestedQuotaTemplateSerializer(WritableNestedSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='plugins-api:netbox_manage_project-api:quotatemplate-detail'
+        view_name='plugins-api:netbox_project_quota-api:quotatemplate-detail'
     )
 
     class Meta:
@@ -38,7 +38,7 @@ class NestedQuotaTemplateSerializer(WritableNestedSerializer):
 
 class ProjectSerializer(NetBoxModelSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='plugins-api:netbox_manage_project-api:project-detail'
+        view_name='plugins-api:netbox_project_quota-api:project-detail'
     )
     quota_template = NestedQuotaTemplateSerializer()
     device_count = serializers.IntegerField(read_only=True)
@@ -63,7 +63,7 @@ class ProjectSerializer(NetBoxModelSerializer):
 
 class QuotaTemplateSerializer(NetBoxModelSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='plugins-api:netbox_manage_project-api:quotatemplate-detail'
+        view_name='plugins-api:netbox_project_quota-api:quotatemplate-detail'
     )
 
     class Meta:
