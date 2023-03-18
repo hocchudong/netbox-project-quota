@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('tenancy', '0009_standardize_description_comments'),
-        ('netbox_manage_project', '0003_project_contact_project_user_count_and_more'),
+        ('netbox_project_quota', '0003_project_contact_project_user_count_and_more'),
     ]
 
     operations = [

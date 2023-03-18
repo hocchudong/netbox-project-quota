@@ -38,7 +38,7 @@ class Project(NetBoxModel):
     )
 
     quota_template = models.ForeignKey(
-        to='netbox_manage_project.QuotaTemplate',
+        to='netbox_project_quota.QuotaTemplate',
         on_delete=models.SET_NULL,
         related_name='project_quota',
         null=True,
@@ -143,7 +143,7 @@ class Project(NetBoxModel):
         return str(f"{self.name}")
     
     def get_absolute_url(self):
-        return reverse('plugins:netbox_manage_project:project', args=[self.pk])
+        return reverse('plugins:netbox_project_quota:project', args=[self.pk])
 
     def get_status_color(self):
         return ProjectStatusChoices.colors.get(self.status)
