@@ -16,3 +16,7 @@ class QuotaTemplateEditView(generic.ObjectEditView):
 
 class QuotaTemplateDeleteView(generic.ObjectDeleteView):
     queryset = models.QuotaTemplate.objects.all()
+
+class QuotaTemplateBulkDeleteView(generic.BulkDeleteView):
+    queryset = models.QuotaTemplate.objects.all()
+    table = tables.QuotaTemplateTable

@@ -8,6 +8,7 @@ urlpatterns = (
     # Project lists
     path('project/', views.ProjectListView.as_view(), name='project_list'),
     path('project/add/', views.ProjectEditView.as_view(), name='project_add'),
+    path('project/delete/', views.ProjectBulkDeleteView.as_view(), name='project_bulk_delete'),
     path('project/<int:pk>/', views.ProjectView.as_view(), name='project'),
     path('project/<int:pk>/edit/', views.ProjectEditView.as_view(), name='project_edit'),
     path('project/<int:pk>/delete/', views.ProjectDeleteView.as_view(), name='project_delete'),
@@ -37,6 +38,7 @@ urlpatterns = (
     # Quota Template
     path('quotatemplate/', views.QuotaTemplateListView.as_view(), name='quotatemplate_list'),
     path('quotatemplate/add/', views.QuotaTemplateEditView.as_view(), name='quotatemplate_add'),
+    path('quotatemplate/delete/', views.QuotaTemplateBulkDeleteView.as_view(), name='quotatemplate_bulk_delete'),
     path('quotatemplate/<int:pk>/', views.QuotaTemplateView.as_view(), name='quotatemplate'),
     path('quotatemplate/<int:pk>/edit/', views.QuotaTemplateEditView.as_view(), name='quotatemplate_edit'),
     path('quotatemplate/<int:pk>/delete/', views.QuotaTemplateDeleteView.as_view(), name='quotatemplate_delete'),

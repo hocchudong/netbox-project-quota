@@ -9,7 +9,7 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Domain Name</th>
+        <th>Project Owner</th>
         <th>Status</th>
         <th>Quota Template</th>
       </tr>
@@ -17,8 +17,8 @@
     <tbody>
       {% for p in project %}
         <tr>
-          <td><a href="{% url 'plugins:netbox_project_quota:project' pk=p.id %}?return_url={{ p.get_absolute_url }}">{{ p.name }} </a></td>
-          <td>{{ p.domain_name }}</td>
+          <td><a href="{% url 'plugins:netbox_manage_project:project' pk=p.id %}?return_url={{ p.get_absolute_url }}">{{ p.name }} </a></td>
+          <td>{{ p.project_owner }}</td>
           <td>{{ p.status }}</td>
           <td>{{ p.quota_template }}</td>
         </tr>
