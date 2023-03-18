@@ -10,7 +10,6 @@ from utilities.views import register_model_view
 
 
 # Project view
-@register_model_view(models.Project)
 class ProjectView(generic.ObjectView):
     queryset = models.Project.objects.all()
 
@@ -37,6 +36,7 @@ class ProjectListView(generic.ObjectListView):
             project.device_count = project.devices.all().count()
             project.ip_count = project.ipaddress.all().count()
             project.vm_count = project.virtualmachine.all().count()
+            project.user_count = project.contact.all().count()
 
             quota_templates = models.QuotaTemplate.objects.filter(id=project.quota_template_id).first()
             vms_list = project.virtualmachine.all()
@@ -85,12 +85,15 @@ class ProjectListView(generic.ObjectListView):
     table = tables.ProjectTable
 
 
-@register_model_view(models.Project, 'edit')
 class ProjectEditView(generic.ObjectEditView):
     queryset = models.Project.objects.all()
     form = forms.ProjectForm
 
 
-@register_model_view(models.Project, 'delete')
 class ProjectDeleteView(generic.ObjectDeleteView):
     queryset = models.Project.objects.all()
+
+
+class ProjectBulkDeleteView(generic.BulkDeleteView):
+    queryset = models.Project.objects.all()
+    table = tables.ProjectTable

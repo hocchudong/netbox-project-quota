@@ -24,11 +24,12 @@ class Project(NetBoxModel):
         verbose_name = 'Project ID'
     )
 
-    domain_name = models.CharField(
-        max_length=50,
+    project_owner = models.ForeignKey(
+        to='tenancy.Contact',
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        verbose_name = 'Domain Name'
+        verbose_name = 'Project Owner'
     )
 
     status = models.CharField(
@@ -37,7 +38,7 @@ class Project(NetBoxModel):
     )
 
     quota_template = models.ForeignKey(
-        to='netbox_project_quota.QuotaTemplate',
+        to='netbox_manage_project.QuotaTemplate',
         on_delete=models.SET_NULL,
         related_name='project_quota',
         null=True,
@@ -142,7 +143,7 @@ class Project(NetBoxModel):
         return str(f"{self.name}")
     
     def get_absolute_url(self):
-        return reverse('plugins:netbox_project_quota:project', args=[self.pk])
+        return reverse('plugins:netbox_manage_project:project', args=[self.pk])
 
     def get_status_color(self):
         return ProjectStatusChoices.colors.get(self.status)

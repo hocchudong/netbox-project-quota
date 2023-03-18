@@ -6,11 +6,12 @@ from ..models import Project, QuotaTemplate
 
 class NestedProjectSerializer(WritableNestedSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='plugins-api:netbox_project_quota-api:project-detail'
+        view_name='plugins-api:netbox_manage_project-api:project-detail'
     )
     device_count = serializers.IntegerField(read_only=True)
     ip_count = serializers.IntegerField(read_only=True)
     vm_count = serializers.IntegerField(read_only=True)
+    user_count = serializers.IntegerField(read_only=True)
     ram_quota_used = serializers.CharField(read_only=True)
     cpu_quota_used = serializers.CharField(read_only=True)
     disk_quota_used = serializers.CharField(read_only=True)
@@ -20,7 +21,7 @@ class NestedProjectSerializer(WritableNestedSerializer):
     class Meta:
         model = Project
         fields = (
-            'id', 'url', 'display', 'name', 'device_count', 'ip_count', 'vm_count', 
+            'id', 'url', 'display', 'name', 'device_count', 'ip_count', 'vm_count', 'user_count',
             'ram_quota_used', 'cpu_quota_used', 'disk_quota_used', 'device_quota_used',
             'vm_quota_used', 'ip_quota_used'
         )
@@ -28,7 +29,7 @@ class NestedProjectSerializer(WritableNestedSerializer):
 
 class NestedQuotaTemplateSerializer(WritableNestedSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='plugins-api:netbox_project_quota-api:quotatemplate-detail'
+        view_name='plugins-api:netbox_manage_project-api:quotatemplate-detail'
     )
 
     class Meta:
@@ -37,12 +38,13 @@ class NestedQuotaTemplateSerializer(WritableNestedSerializer):
 
 class ProjectSerializer(NetBoxModelSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='plugins-api:netbox_project_quota-api:project-detail'
+        view_name='plugins-api:netbox_manage_project-api:project-detail'
     )
     quota_template = NestedQuotaTemplateSerializer()
     device_count = serializers.IntegerField(read_only=True)
     ip_count = serializers.IntegerField(read_only=True)
     vm_count = serializers.IntegerField(read_only=True)
+    user_count = serializers.IntegerField(read_only=True)
     ram_quota_used = serializers.CharField(read_only=True)
     cpu_quota_used = serializers.CharField(read_only=True)
     disk_quota_used = serializers.CharField(read_only=True)
@@ -53,7 +55,7 @@ class ProjectSerializer(NetBoxModelSerializer):
         model = Project
         fields = (
             'id', 'url', 'display', 'name', 'project_id', 'status', 'quota_template',
-            'domain_name', 'description', 'device_count', 'ip_count', 'vm_count',
+            'project_owner', 'description', 'device_count', 'ip_count', 'vm_count', 'user_count',
             'ram_quota_used', 'cpu_quota_used', 'disk_quota_used', 'device_quota_used',
             'vm_quota_used', 'ip_quota_used', 'comments', 'tags', 'custom_fields', 'created', 'last_updated', 
         )
@@ -61,7 +63,7 @@ class ProjectSerializer(NetBoxModelSerializer):
 
 class QuotaTemplateSerializer(NetBoxModelSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='plugins-api:netbox_project_quota-api:quotatemplate-detail'
+        view_name='plugins-api:netbox_manage_project-api:quotatemplate-detail'
     )
 
     class Meta:

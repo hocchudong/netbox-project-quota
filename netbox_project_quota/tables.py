@@ -15,7 +15,8 @@ class ProjectTable(NetBoxTable):
     )
     project_id = tables.Column(
     )
-    domain_name = tables.Column(
+    project_owner = tables.Column(
+        linkify=True,
     )
     status = ChoiceFieldColumn()
 
@@ -32,6 +33,9 @@ class ProjectTable(NetBoxTable):
     vm_count = tables.Column(
     )
 
+    user_count = tables.Column(
+    )
+
     description = tables.Column()
 
     comments = columns.MarkdownColumn()
@@ -43,12 +47,13 @@ class ProjectTable(NetBoxTable):
                   "id", 
                   "name", 
                   "project_id", 
-                  "domain_name", 
+                  "project_owner", 
                   "status", 
                   "quota_template", 
                   "device_count",
                   "ip_count",
                   "vm_count",
+                  "user_count",
                   "ram_quota_used",
                   "cpu_quota_used",
                   "disk_quota_used",
@@ -62,13 +67,14 @@ class ProjectTable(NetBoxTable):
                   "last_updated", 
                   "actions"
                 )
-        default_columns = ("name", 
-                           "project_id", 
+        default_columns = ("name",
+                           "project_owner", 
                            "status", 
                            "quota_template", 
                            "device_count",
                            "ip_count",
                            "vm_count",
+                           "user_count",
                         )
 
 class QuotaTemplateTable(NetBoxTable):

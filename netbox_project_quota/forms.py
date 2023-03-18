@@ -22,7 +22,7 @@ class ProjectForm(NetBoxModelForm):
             (
                 'name', 
                 'project_id', 
-                'domain_name', 
+                'project_owner', 
                 'status', 
                 'quota_template'
             )
@@ -30,7 +30,7 @@ class ProjectForm(NetBoxModelForm):
     )
     class Meta:
         model = Project
-        fields = ('name', 'project_id', 'domain_name', 'status', 'quota_template', 'comments', 'tags')
+        fields = ('name', 'project_id', 'project_owner', 'status', 'quota_template', 'comments', 'tags')
 
 
 class ProjectFilterForm(NetBoxModelFilterSetForm):
@@ -150,7 +150,6 @@ class ProjectRemoveDevicesForm(ConfirmationForm):
         widget=forms.MultipleHiddenInput()
     )
 
-
 ###### Project IPAddress ######
 
 ### IP ADD
@@ -171,7 +170,6 @@ class ProjectAddIPAddressForm(BootstrapMixin, forms.Form):
 
 
 ### IP Remove
-
 class ProjectRemoveIPsForm(ConfirmationForm):
     pk = forms.ModelMultipleChoiceField(
         queryset=IPAddress.objects.all(),

@@ -30,6 +30,7 @@ class ProjectViewSet(NetBoxModelViewSet):
             project.device_count = project.devices.all().count()
             project.ip_count = project.ipaddress.all().count()
             project.vm_count = project.virtualmachine.all().count()
+            project.user_count = project.contact.all().count()
 
             quota_templates = models.QuotaTemplate.objects.filter(id=project.quota_template_id).first()
             vms_list = project.virtualmachine.all()
