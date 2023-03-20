@@ -7,7 +7,7 @@ from django.db.models import Sum
 from django.db.models import Count
 from django_tables2 import RequestConfig
 from utilities.views import register_model_view
-
+from .. import filtersets
 
 # Project view
 class ProjectView(generic.ObjectView):
@@ -56,33 +56,61 @@ class ProjectListView(generic.ObjectListView):
             elif not result['total_cpu'] and result['total_ram']:
                 total_cpu = '0'
                 total_ram = self.convert_mb_to_flexible_size(int(result['total_ram']))
-            ram_quota = self.convert_mb_to_flexible_size(int(quota_templates.ram_quota))
+
+            if quota_templates.ram_quota:
+                ram_quota = self.convert_mb_to_flexible_size(int(quota_templates.ram_quota))
+            else:
+                ram_quota = "_"
             project.ram_quota_used = "Assign {} of {}".format(
                 str(total_ram),
                 str(ram_quota)
             )
+
+            if quota_templates.vcpus_quota:
+                cpu_quota = quota_templates.vcpus_quota
+            else:
+                cpu_quota = "_"
+            # project.cpu_quota_used = ""
             project.cpu_quota_used = "Assign {} of {}".format(
                 int(total_cpu),
-                int(quota_templates.vcpus_quota)
+                str(cpu_quota)
             )
 
             project.disk_quota_used = "_"
 
+            if quota_templates.device_quota:
+                device_quota = quota_templates.device_quota
+            else:
+                device_quota = "_"
+            # project.device_quota_used = ""
             project.device_quota_used = "Assign {} of {}".format(
                 int(project.device_count),
-                int(quota_templates.device_quota)
+                str(device_quota)
             )
+
+            if quota_templates.instances_quota:
+                vm_quota = quota_templates.instances_quota
+            else:
+                vm_quota = "_"
+            # project.vm_quota_used = ""
             project.vm_quota_used = "Assign {} of {}".format(
                 int(project.vm_count),
-                int(quota_templates.instances_quota)
+                str(vm_quota)
             )
+
+            if quota_templates.ipaddr_quota:
+                ip_quota = quota_templates.ipaddr_quota
+            else:
+                ip_quota = "_"
             project.ip_quota_used = "Assign {} of {}".format(
                 int(project.ip_count),
-                int(quota_templates.ipaddr_quota)
+                str(ip_quota)
             )
             project.save()
         return queryset
     table = tables.ProjectTable
+    filterset = filtersets.ProjectFilterSet
+    filterset_form = forms.ProjectFilterForm
 
 
 class ProjectEditView(generic.ObjectEditView):

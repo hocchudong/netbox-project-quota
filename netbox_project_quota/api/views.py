@@ -12,6 +12,7 @@ class ProjectViewSet(NetBoxModelViewSet):
     queryset = models.Project.objects.prefetch_related(
         'quota_template', 'tags'
     )
+    
     def convert_mb_to_flexible_size(self, mb_value):
         if mb_value >= 1048576:
             # Convert from MB to TB
@@ -24,6 +25,7 @@ class ProjectViewSet(NetBoxModelViewSet):
         else:
             # No convert
             return '{}MB'.format(int(mb_value))
+
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         for project in queryset:
@@ -50,29 +52,52 @@ class ProjectViewSet(NetBoxModelViewSet):
             elif not result['total_cpu'] and result['total_ram']:
                 total_cpu = '0'
                 total_ram = self.convert_mb_to_flexible_size(int(result['total_ram']))
-            ram_quota = self.convert_mb_to_flexible_size(int(quota_templates.ram_quota))
+
+            if quota_templates.ram_quota:
+                ram_quota = self.convert_mb_to_flexible_size(int(quota_templates.ram_quota))
+            else:
+                ram_quota = "_"
             project.ram_quota_used = "Assign {} of {}".format(
                 str(total_ram),
                 str(ram_quota)
             )
+
+            if quota_templates.vcpus_quota:
+                cpu_quota = quota_templates.vcpus_quota
+            else:
+                cpu_quota = "_"
             project.cpu_quota_used = "Assign {} of {}".format(
                 int(total_cpu),
-                int(quota_templates.vcpus_quota)
+                str(cpu_quota)
             )
 
             project.disk_quota_used = "_"
 
+            if quota_templates.device_quota:
+                device_quota = quota_templates.device_quota
+            else:
+                device_quota = "_"
             project.device_quota_used = "Assign {} of {}".format(
                 int(project.device_count),
-                int(quota_templates.device_quota)
+                str(device_quota)
             )
+
+            if quota_templates.instances_quota:
+                vm_quota = quota_templates.instances_quota
+            else:
+                vm_quota = "_"
             project.vm_quota_used = "Assign {} of {}".format(
                 int(project.vm_count),
-                int(quota_templates.instances_quota)
+                str(vm_quota)
             )
+
+            if quota_templates.ipaddr_quota:
+                ip_quota = quota_templates.ipaddr_quota
+            else:
+                ip_quota = "_"
             project.ip_quota_used = "Assign {} of {}".format(
                 int(project.ip_count),
-                int(quota_templates.ipaddr_quota)
+                str(ip_quota)
             )
             project.save()
         return queryset

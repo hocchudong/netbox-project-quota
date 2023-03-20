@@ -72,5 +72,6 @@ class QuotaTemplateSerializer(NetBoxModelSerializer):
         fields = (
             'id', 'url', 'display', 'template_name', 'instances_quota', 
             'vcpus_quota', 'ram_quota', 'ipaddr_quota', 'device_quota', 
-            'comments', 'tags', 'custom_fields', 'created', 'last_updated',
+            'description', 'comments', 'tags', 'custom_fields', 'created',
+            'last_updated',
         )
