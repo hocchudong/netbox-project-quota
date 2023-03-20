@@ -16,6 +16,14 @@ PLUGINS = [
 ]
 ```
 
+Migate DB:
+
+
+```
+cd /opt/netbox/netbox
+python3 manage.py migrate
+```
+
 Then you may need to perform the final step of restarting the service to ensure that the changes take effect correctly:
 
 ```

@@ -29,7 +29,7 @@ class Project(NetBoxModel):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        verbose_name = 'Project Owner'
+        verbose_name = 'Contact Point'
     )
 
     status = models.CharField(

@@ -34,6 +34,11 @@ class QuotaTemplate(NetBoxModel):
         verbose_name = 'Device Quota'
     )
 
+    description = models.CharField(
+        max_length=500,
+        blank=True
+    )
+
     comments = models.TextField(
         blank=True
     )

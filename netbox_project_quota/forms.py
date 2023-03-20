@@ -11,6 +11,9 @@ from virtualization.models import ClusterGroup, Cluster, VirtualMachine
 
 
 class ProjectForm(NetBoxModelForm):
+    project_owner = DynamicModelChoiceField(
+        queryset=Contact.objects.all()
+    )
     comments = CommentField()
     tags = DynamicModelMultipleChoiceField(
         queryset=Tag.objects.all(),
@@ -24,18 +27,26 @@ class ProjectForm(NetBoxModelForm):
                 'project_id', 
                 'project_owner', 
                 'status', 
-                'quota_template'
+                'quota_template',
+                'description',
+                'tags'
             )
         ),
     )
     class Meta:
         model = Project
-        fields = ('name', 'project_id', 'project_owner', 'status', 'quota_template', 'comments', 'tags')
+        fields = ('name', 'project_id', 'project_owner', 'status', 'quota_template', 'description', 'comments', 'tags')
 
 
 class ProjectFilterForm(NetBoxModelFilterSetForm):
     model = Project
     name = forms.CharField(
+        required=False
+    )
+    contact_id = DynamicModelChoiceField(
+        queryset=Contact.objects.all(),
+        required=False,
+        label='Contact Point'
     )
     project_id = forms.CharField(
         required=False,
@@ -44,9 +55,10 @@ class ProjectFilterForm(NetBoxModelFilterSetForm):
         choices=ProjectStatusChoices,
         required=False,
     )
-    quota_template = DynamicModelChoiceField(
+    quota_template_id = DynamicModelChoiceField(
         queryset=QuotaTemplate.objects.all(),
         required=False,
+        label='Quota Template'
     )
 
 
@@ -56,20 +68,29 @@ class QuotaTemplateForm(NetBoxModelForm):
     )
     instances_quota = forms.IntegerField(
         label='VM Quota',
+        required=False
     )
 
     vcpus_quota = forms.IntegerField(
         label='VCPUs Quota',
+        required=False
     )
+
     ram_quota = forms.IntegerField(
         label='RAM Quota (MB)',
+        required=False
     )
+
     ipaddr_quota = forms.IntegerField(
         label='IP Quota',
+        required=False
     )
+
     device_quota = forms.IntegerField(
         label='Device Quota',
+        required=False
     )
+    
     comments = CommentField()
     tags = DynamicModelMultipleChoiceField(
         queryset=Tag.objects.all(),
@@ -84,14 +105,22 @@ class QuotaTemplateForm(NetBoxModelForm):
                 'vcpus_quota', 
                 'ram_quota', 
                 'ipaddr_quota', 
-                'device_quota'
+                'device_quota',
+                'description',
+                'tags'
             )
         ),
     )
     class Meta:
         model = QuotaTemplate
-        fields = ('template_name', 'instances_quota', 'vcpus_quota', 'ram_quota', 'ipaddr_quota', 'device_quota', 'comments', 'tags')
+        fields = ('template_name', 'instances_quota', 'vcpus_quota', 'ram_quota', 'ipaddr_quota', 'device_quota', 'description', 'comments', 'tags')
 
+
+class QuotaTemplateFilterForm(NetBoxModelFilterSetForm):
+    model = QuotaTemplate
+    template_name = forms.CharField(
+        required=False
+    )
 
 ###### Project Device ######
 
@@ -150,6 +179,7 @@ class ProjectRemoveDevicesForm(ConfirmationForm):
         widget=forms.MultipleHiddenInput()
     )
 
+
 ###### Project IPAddress ######
 
 ### IP ADD
@@ -170,6 +200,7 @@ class ProjectAddIPAddressForm(BootstrapMixin, forms.Form):
 
 
 ### IP Remove
+
 class ProjectRemoveIPsForm(ConfirmationForm):
     pk = forms.ModelMultipleChoiceField(
         queryset=IPAddress.objects.all(),
