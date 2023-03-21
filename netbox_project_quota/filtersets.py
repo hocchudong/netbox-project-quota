@@ -6,7 +6,17 @@ import django_filters
 
 
 class ProjectFilterSet(NetBoxModelFilterSet):
+    project_owner_id = django_filters.ModelMultipleChoiceFilter(
+        field_name='project_owner',
+        queryset=Contact.objects.all(),
+        label='Contact (ID)',
+    )
 
+    quota_template_id = django_filters.ModelMultipleChoiceFilter(
+        field_name='quota_template',
+        queryset=QuotaTemplate.objects.all(),
+        label='Quota Template (ID)',
+    )
     class Meta:
         model = Project
         fields = ('id', 'name', 'project_id', 'project_owner', 'status', 'quota_template')
