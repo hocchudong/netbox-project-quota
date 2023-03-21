@@ -6,7 +6,7 @@ import django_filters
 
 
 class ProjectFilterSet(NetBoxModelFilterSet):
-    contact_id = django_filters.ModelMultipleChoiceFilter(
+    project_owner_id = django_filters.ModelMultipleChoiceFilter(
         field_name='project_owner',
         queryset=Contact.objects.all(),
         label='Contact (ID)',
@@ -26,8 +26,8 @@ class ProjectFilterSet(NetBoxModelFilterSet):
             Q(name__icontains=value) |
             Q(project_id__icontains=value) |
             Q(project_owner__name__icontains=value) |
-            Q(quota_template__name__icontains=value) |
-            Q(status__icontains=value)
+            Q(status__icontains=value) |
+            Q(quota_template__template_name__icontains=value)
         )
         return queryset.filter(query)
 

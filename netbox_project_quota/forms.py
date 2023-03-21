@@ -43,7 +43,7 @@ class ProjectFilterForm(NetBoxModelFilterSetForm):
     name = forms.CharField(
         required=False
     )
-    contact_id = DynamicModelChoiceField(
+    project_owner_id = DynamicModelChoiceField(
         queryset=Contact.objects.all(),
         required=False,
         label='Contact Point'
