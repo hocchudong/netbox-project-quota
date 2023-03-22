@@ -2,7 +2,7 @@ from .models import Project, QuotaTemplate, ProjectStatusChoices
 from extras.models import Tag
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField
-from utilities.forms import ConfirmationForm, BootstrapMixin
+from utilities.forms import ConfirmationForm, BootstrapMixin, TagFilterField, MultipleChoiceField
 from django import forms
 from dcim.models import Device, DeviceRole, Platform, Rack, Region, Site, SiteGroup
 from ipam.models import IPAddress
@@ -40,18 +40,25 @@ class ProjectForm(NetBoxModelForm):
 
 class ProjectFilterForm(NetBoxModelFilterSetForm):
     model = Project
-    name = forms.CharField(
-        required=False
+    fieldsets = (
+        (None, ('q', 'filter_id', 'tag')),
+        ('Project', (
+            'project_owner_id', 'project_id', 'status', 'quota_template_id'
+        )),
+        ('Attributes', (
+            'contact_id', 'virtualmachine_id', 'ipaddress_id', 'devices_id'
+        ))
     )
     project_owner_id = DynamicModelChoiceField(
         queryset=Contact.objects.all(),
         required=False,
         label='Contact Point'
     )
+
     project_id = forms.CharField(
         required=False,
     )
-    status = forms.MultipleChoiceField(
+    status = MultipleChoiceField(
         choices=ProjectStatusChoices,
         required=False,
     )
@@ -60,6 +67,27 @@ class ProjectFilterForm(NetBoxModelFilterSetForm):
         required=False,
         label='Quota Template'
     )
+    contact_id = DynamicModelMultipleChoiceField(
+        queryset=Contact.objects.all(),
+        required=False,
+        label='User'
+    )
+    virtualmachine_id = DynamicModelMultipleChoiceField(
+        queryset=VirtualMachine.objects.all(),
+        required=False,
+        label='VM'
+    )
+    ipaddress_id = DynamicModelMultipleChoiceField(
+        queryset=IPAddress.objects.all(),
+        required=False,
+        label='IP Address'
+    )
+    devices_id = DynamicModelMultipleChoiceField(
+        queryset=Device.objects.all(),
+        required=False,
+        label='Device'
+    )
+    tag = TagFilterField(model)
 
 
 class QuotaTemplateForm(NetBoxModelForm):
@@ -121,6 +149,7 @@ class QuotaTemplateFilterForm(NetBoxModelFilterSetForm):
     template_name = forms.CharField(
         required=False
     )
+    tag = TagFilterField(model)
 
 ###### Project Device ######
 
