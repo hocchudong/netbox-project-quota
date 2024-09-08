@@ -16,7 +16,7 @@ class ProjectView(generic.ObjectView):
 
 class ProjectListView(generic.ObjectListView):
     queryset = models.Project.objects.all()
-    
+
     def convert_mb_to_flexible_size(self, mb_value):
         if mb_value >= 1048576:
             # Convert from MB to TB

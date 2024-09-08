@@ -9,6 +9,7 @@ class QuotaTemplate(NetBoxModel):
         null=True,
         verbose_name = 'Template Quota'
     )
+
     instances_quota = models.PositiveIntegerField(
         null=True,
         verbose_name = 'VM Quota'
@@ -32,11 +33,6 @@ class QuotaTemplate(NetBoxModel):
     device_quota = models.PositiveIntegerField(
         null=True,
         verbose_name = 'Device Quota'
-    )
-
-    description = models.CharField(
-        max_length=500,
-        blank=True
     )
 
     comments = models.TextField(

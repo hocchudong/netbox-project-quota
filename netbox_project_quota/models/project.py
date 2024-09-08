@@ -29,7 +29,7 @@ class Project(NetBoxModel):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        verbose_name = 'Contact Point'
+        verbose_name = 'Project Owner'
     )
 
     status = models.CharField(
@@ -45,25 +45,25 @@ class Project(NetBoxModel):
         verbose_name = 'Quota Template'
     )
     devices = models.ManyToManyField(
-        to='dcim.Device', 
+        to='dcim.Device',
         related_name='assigned_device',
         blank=True,
         default=None
     )
     ipaddress = models.ManyToManyField(
-        to='ipam.IPAddress', 
+        to='ipam.IPAddress',
         related_name='assigned_ipaddress',
         blank=True,
         default=None
     )
     virtualmachine = models.ManyToManyField(
-        to='virtualization.VirtualMachine', 
+        to='virtualization.VirtualMachine',
         related_name='assigned_vm',
         blank=True,
         default=None
     )
     contact = models.ManyToManyField(
-        to='tenancy.Contact', 
+        to='tenancy.Contact',
         related_name='assigned_contact',
         blank=True,
         default=None
@@ -75,25 +75,25 @@ class Project(NetBoxModel):
 
     # Count Quota use
     device_count = models.IntegerField(
-        null=True, 
-        blank=True, 
+        null=True,
+        blank=True,
         default=None,
         verbose_name = 'Device Count'
     )
     ip_count = models.IntegerField(
-        null=True, 
-        blank=True, 
+        null=True,
+        blank=True,
         default=None,
         verbose_name = 'IP Count'
     )
     vm_count = models.IntegerField(
-        null=True, 
+        null=True,
         blank=True,
         default=None,
         verbose_name = 'VM Count'
     )
     user_count = models.IntegerField(
-        null=True, 
+        null=True,
         blank=True,
         default=None,
         verbose_name = 'User Count'
@@ -141,7 +141,7 @@ class Project(NetBoxModel):
 
     def __str__(self):
         return str(f"{self.name}")
-    
+
     def get_absolute_url(self):
         return reverse('plugins:netbox_project_quota:project', args=[self.pk])
 
