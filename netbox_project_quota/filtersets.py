@@ -48,18 +48,18 @@ class ProjectFilterSet(NetBoxModelFilterSet):
     class Meta:
         model = Project
         fields = (
-            'id', 
-            'name', 
-            'project_id', 
-            'project_owner', 
-            'status', 
-            'quota_template', 
+            'id',
+            'name',
+            'project_id',
+            'project_owner',
+            'status',
+            'quota_template',
             'contact',
             'virtualmachine',
             'devices',
             'ipaddress'
         )
-        
+
     def search(self, queryset, name, value):
         query = Q(
             Q(name__icontains=value) |
@@ -76,7 +76,7 @@ class QuotaTemplateFilterSet(NetBoxModelFilterSet):
     class Meta:
         model = QuotaTemplate
         fields = ('id', 'template_name')
-        
+
     def search(self, queryset, name, value):
         query = Q(
             Q(template_name__icontains=value)

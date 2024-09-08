@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='netbox-project-quota',
-    version='1.0.7',
+    version='1.0.8',
     description='Netbox Plugin for Manage Project',
     install_requires=[],
     packages=find_packages(),

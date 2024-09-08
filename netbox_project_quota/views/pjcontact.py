@@ -76,7 +76,7 @@ class ProjectContactView(generic.ObjectChildrenView):
         return Contact.objects.restrict(request.user, 'view').filter(
             pk__in=[contact.pk for contact in contact_list]
         )
-    
+
 @register_model_view(models.Project, 'remove_contact', path='contact/remove')
 class ProjectRemoveContactView(generic.ObjectEditView):
     queryset = models.Project.objects.all()

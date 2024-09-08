@@ -32,10 +32,13 @@
                 <th scope="row">Device Quota</th>
                 <td>{{ object.device_quota }}</td>
             </tr>
-            <tr>
-                <th scope="row">Description</th>
-                <td>{{ object.description }}</td>
-            </tr>
+            <!-- <tr>
+                <th scope="row">Actions</th>
+                <td>
+                    <a href="{% url 'plugins:netbox_project_quota:quotatemplate_edit' object.pk %}" class="btn btn-sm btn-secondary"><i class="mdi mdi-pencil"></i></a>
+                    <a href="{% url 'plugins:netbox_project_quota:quotatemplate_delete' object.pk %}" class="btn btn-sm btn-danger" data-confirm="Are you sure you want to delete this quota template?" data-confirm-title="Confirm Delete"><i class="mdi mdi-trash-can"></i></a>
+                </td>
+            </tr> -->
           </table>
         </div>
       </div>

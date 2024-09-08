@@ -12,7 +12,7 @@ class ProjectViewSet(NetBoxModelViewSet):
     queryset = models.Project.objects.prefetch_related(
         'quota_template', 'tags'
     )
-    
+
     def convert_mb_to_flexible_size(self, mb_value):
         if mb_value >= 1048576:
             # Convert from MB to TB

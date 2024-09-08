@@ -1,10 +1,10 @@
 from packaging import version
 
-from extras.plugins import PluginMenuButton, PluginMenuItem
-from utilities.choices import ButtonColorChoices
+from netbox.plugins import PluginMenuButton, PluginMenuItem
+from netbox.choices import ButtonColorChoices
 
 try:
-    from extras.plugins import PluginMenu
+    from netbox.plugins import PluginMenu
     HAVE_MENU = True
 except ImportError:
     HAVE_MENU = False
@@ -15,7 +15,7 @@ project_buttons = [
         link='plugins:netbox_project_quota:project_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
-        color=ButtonColorChoices.GREEN
+        color=ButtonColorChoices.DEFAULT
     )
 ]
 
@@ -24,7 +24,7 @@ quota_template_buttons = [
         link='plugins:netbox_project_quota:quotatemplate_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
-        color=ButtonColorChoices.GREEN
+        color=ButtonColorChoices.DEFAULT
     )
 ]
 
