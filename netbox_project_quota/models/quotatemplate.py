@@ -9,6 +9,7 @@ class QuotaTemplate(NetBoxModel):
         null=True,
         verbose_name = 'Template Quota'
     )
+
     instances_quota = models.PositiveIntegerField(
         null=True,
         verbose_name = 'VM Quota'

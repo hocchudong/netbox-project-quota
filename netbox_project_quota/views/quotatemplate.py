@@ -1,5 +1,6 @@
 from netbox.views import generic
 from .. import forms, models, tables
+from .. import filtersets
 
 
 # Quota Template view
@@ -9,6 +10,8 @@ class QuotaTemplateView(generic.ObjectView):
 class QuotaTemplateListView(generic.ObjectListView):
     queryset = models.QuotaTemplate.objects.all()
     table = tables.QuotaTemplateTable
+    filterset = filtersets.QuotaTemplateFilterSet
+    filterset_form = forms.QuotaTemplateFilterForm
 
 class QuotaTemplateEditView(generic.ObjectEditView):
     queryset = models.QuotaTemplate.objects.all()

@@ -38,32 +38,32 @@ class Project(NetBoxModel):
     )
 
     quota_template = models.ForeignKey(
-        to='netbox_manage_project.QuotaTemplate',
+        to='netbox_project_quota.QuotaTemplate',
         on_delete=models.SET_NULL,
         related_name='project_quota',
         null=True,
         verbose_name = 'Quota Template'
     )
     devices = models.ManyToManyField(
-        to='dcim.Device', 
+        to='dcim.Device',
         related_name='assigned_device',
         blank=True,
         default=None
     )
     ipaddress = models.ManyToManyField(
-        to='ipam.IPAddress', 
+        to='ipam.IPAddress',
         related_name='assigned_ipaddress',
         blank=True,
         default=None
     )
     virtualmachine = models.ManyToManyField(
-        to='virtualization.VirtualMachine', 
+        to='virtualization.VirtualMachine',
         related_name='assigned_vm',
         blank=True,
         default=None
     )
     contact = models.ManyToManyField(
-        to='tenancy.Contact', 
+        to='tenancy.Contact',
         related_name='assigned_contact',
         blank=True,
         default=None
@@ -75,25 +75,25 @@ class Project(NetBoxModel):
 
     # Count Quota use
     device_count = models.IntegerField(
-        null=True, 
-        blank=True, 
+        null=True,
+        blank=True,
         default=None,
         verbose_name = 'Device Count'
     )
     ip_count = models.IntegerField(
-        null=True, 
-        blank=True, 
+        null=True,
+        blank=True,
         default=None,
         verbose_name = 'IP Count'
     )
     vm_count = models.IntegerField(
-        null=True, 
+        null=True,
         blank=True,
         default=None,
         verbose_name = 'VM Count'
     )
     user_count = models.IntegerField(
-        null=True, 
+        null=True,
         blank=True,
         default=None,
         verbose_name = 'User Count'
@@ -141,9 +141,9 @@ class Project(NetBoxModel):
 
     def __str__(self):
         return str(f"{self.name}")
-    
+
     def get_absolute_url(self):
-        return reverse('plugins:netbox_manage_project:project', args=[self.pk])
+        return reverse('plugins:netbox_project_quota:project', args=[self.pk])
 
     def get_status_color(self):
         return ProjectStatusChoices.colors.get(self.status)

@@ -1,6 +1,6 @@
 # Netbox Project Quota
 
-## Installing 
+## Installing
 
 To install the plugin, first using pip and install netbox-project-quota:
 
@@ -41,7 +41,7 @@ cd netbox-docker
 ```
 
 Bước 2: Tạo file `plugin_requirements.txt`
-Tạo file `plugin_requirements.txt` với nội dung 
+Tạo file `plugin_requirements.txt` với nội dung
 
 ```
 gunicorn
@@ -101,7 +101,7 @@ services:
       dockerfile: Dockerfile-Plugins
 ```
 
-Bước 7: Chạy docker-compose 
+Bước 7: Chạy docker-compose
 
 ```
 docker-compose up -d
@@ -115,4 +115,3 @@ Nếu muốn xóa container để chạy lại từ đầu thì thực hiện
 ```
 docker-compose down -v
 ```
-
