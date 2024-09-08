@@ -5,6 +5,8 @@
 To install the plugin, first using pip and install netbox-project-quota:
 
 ```
+cd /opt/netbox
+source venv/bin/activate
 pip3 install netbox-project-quota
 ```
 
@@ -19,6 +21,7 @@ PLUGINS = [
 Then you may need to perform the final step of restarting the service to ensure that the changes take effect correctly:
 
 ```
+python netbox/manage.py migrate netbox_project_quota
 sudo systemctl restart netbox
 ```
 
