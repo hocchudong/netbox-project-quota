@@ -1,10 +1,12 @@
 # Netbox Project Quota
 
-## Installing 
+## Installing
 
 To install the plugin, first using pip and install netbox-project-quota:
 
 ```
+cd /opt/netbox
+source venv/bin/activate
 pip3 install netbox-project-quota
 ```
 
@@ -20,8 +22,8 @@ Migate DB:
 
 
 ```
-cd /opt/netbox/netbox
-python3 manage.py migrate
+python netbox/manage.py migrate netbox_project_quota
+sudo systemctl restart netbox
 ```
 
 Then you may need to perform the final step of restarting the service to ensure that the changes take effect correctly:
@@ -49,7 +51,7 @@ cd netbox-docker
 ```
 
 Bước 2: Tạo file `plugin_requirements.txt`
-Tạo file `plugin_requirements.txt` với nội dung 
+Tạo file `plugin_requirements.txt` với nội dung
 
 ```
 gunicorn
@@ -109,7 +111,7 @@ services:
       dockerfile: Dockerfile-Plugins
 ```
 
-Bước 7: Chạy docker-compose 
+Bước 7: Chạy docker-compose
 
 ```
 docker-compose up -d
